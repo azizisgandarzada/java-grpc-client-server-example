@@ -1,0 +1,7 @@
+# Project exclude paths
+/.gradle/
+/build/
+/java-grpc-client-example/build/
+/java-grpc-client-example/build/classes/java/main/
+/java-grpc-server-example/build/
+/java-grpc-server-example/build/classes/java/main/

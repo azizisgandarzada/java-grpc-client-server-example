@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+package com.grpc.card;
+option java_multiple_files = true;
+
+enum Status {
+  ACTIVE = 0;
+  EXPIRED = 1;
+  BLOCKED = 2;
+}
+
+enum Type {
+  VISA = 0;
+  MASTERCARD = 1;
+  MAESTRO = 3;
+  AMERICAN_EXPRESS = 4;
+}
+
+enum Currency {
+  USD = 0;
+  RUB = 1;
+  GBP = 2;
+  AZN = 3;
+}
+
+message Card {
+  string holderName = 1;
+  string number = 2;
+  Status status = 3;
+  double balance = 4;
+  string expiredAt = 5;
+  Type type = 6;
+  repeated Currency currencies = 7;
+  map<string, string> specifications = 8;
+}
+
+message CardRequest {
+  int32 userId = 1;
+}
+
+message CardResponse {
+  repeated  Card cards = 1;
+}
+
+service CardService {
+  rpc getCardsByUser(CardRequest) returns (CardResponse);
+}
+
