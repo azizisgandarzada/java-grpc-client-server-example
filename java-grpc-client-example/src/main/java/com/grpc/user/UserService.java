@@ -58,9 +58,6 @@ public class UserService {
                     .setUserId(userId)
                     .setCard(card)
                     .build());
-        } catch (Exception ex) {
-            print(ex);
-            return null;
         } finally {
             managedChannel.shutdown();
         }

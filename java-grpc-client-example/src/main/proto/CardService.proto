@@ -54,7 +54,7 @@ message AddCardRequest {
 }
 
 message AddCardResponse {
-  repeated Card cards = 1;
+  Card cards = 1;
 }
 
 message UpdateCardRequest {
@@ -63,7 +63,10 @@ message UpdateCardRequest {
 }
 
 message UpdateCardResponse {
-  repeated Card cards = 1;
+  oneof response {
+    Card cards = 1;
+    ErrorResponse errorResponse = 2;
+  }
 }
 
 message DeleteCardRequest {
@@ -88,9 +91,4 @@ service CardService {
   rpc deleteCard(DeleteCardRequest) returns (DeleteCardResponse);
 
 }
-
-//    oneof response {
-//SuccessResponse success_response = 1;
-//    ErrorResponse error_response = 2;
-//    }
 

@@ -62,8 +62,8 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
 
     @Override
     public void addCard(AddCardRequest request, StreamObserver<AddCardResponse> responseObserver) {
-
-        System.out.println("AddCardRequest ==> " + request); Card card = CARDS.stream()
+        System.out.println("AddCardRequest ==> " + request);
+        Card card = CARDS.stream()
                 .filter(c -> c.getNumber().equals(request.getCard().getNumber()))
                 .findFirst()
                 .orElse(null);
@@ -71,6 +71,7 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
             ErrorResponse errorResponse = ErrorResponse.newBuilder()
                     .setErrorCode(ErrorCode.CARD_ALREADY_EXISTS)
                     .setErrorMessage("Card Already Exists!")
+                    .setTimestamp(System.currentTimeMillis())
                     .build();
             Metadata metadata = getErrorMetadata(errorResponse);
             responseObserver.onError(io.grpc.Status.ALREADY_EXISTS
@@ -81,7 +82,7 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
         }
         CARDS.add(request.getCard());
         responseObserver.onNext(AddCardResponse.newBuilder()
-                .addAllCards(CARDS)
+                .setCards(request.getCard())
                 .build());
         responseObserver.onCompleted();
     }
@@ -93,22 +94,19 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
                 .filter(i -> CARDS.get(i).getId() == request.getCard().getId())
                 .findFirst()
                 .orElse(-1);
+        UpdateCardResponse.Builder builder = UpdateCardResponse.newBuilder();
         if (index == -1) {
             ErrorResponse errorResponse = ErrorResponse.newBuilder()
                     .setErrorCode(ErrorCode.CARD_NOT_FOUND)
                     .setErrorMessage("Card Not Found!")
+                    .setTimestamp(System.currentTimeMillis())
                     .build();
-            Metadata metadata = getErrorMetadata(errorResponse);
-            responseObserver.onError(io.grpc.Status.NOT_FOUND
-                    .withDescription("Card Not Found!")
-                    .asRuntimeException(metadata));
-            responseObserver.onCompleted();
-            return;
+            builder.setErrorResponse(errorResponse);
+        } else {
+            CARDS.add(index, request.getCard());
+            builder.setCards(request.getCard());
         }
-        CARDS.add(index, request.getCard());
-        responseObserver.onNext(UpdateCardResponse.newBuilder()
-                .addAllCards(CARDS)
-                .build());
+        responseObserver.onNext(builder.build());
         responseObserver.onCompleted();
     }
 
