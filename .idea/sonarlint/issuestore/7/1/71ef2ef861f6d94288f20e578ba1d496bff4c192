@@ -1,0 +1,16 @@
+
+H
+java:S11998"-Extract this nested code block into a method.(Î—­Šşÿÿÿÿ
+]
+java:S1126’"AReplace this if-then-else statement by a single return statement.(®Èäîÿÿÿÿÿ
+?	java:S108")Either remove or fill this block of code.(º„ç½
+u
+java:S1488û"_Immediately return this expression instead of assigning it to the temporary variable "builder".(«‰Ÿ~
+C
+java:S11993"-Extract this nested code block into a method.(­Ó–Ô
+m	java:S116‘"RRename this field "userId_" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ÔÉÜúÿÿÿÿ
+l	java:S116Y"RRename this field "userId_" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¼ÔÉÜúÿÿÿÿ
+z
+java:S4144Ş"cUpdate this method so that its implementation is not identical to "getDefaultInstance" on line 453.(Û¯öÉ
+o
+java:S2975Æ"SRemove this "clone" implementation; use a copy constructor or copy factory instead.(Îõ¾Òûÿÿÿÿ
