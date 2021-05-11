@@ -89,3 +89,8 @@ service CardService {
 
 }
 
+//    oneof response {
+//SuccessResponse success_response = 1;
+//    ErrorResponse error_response = 2;
+//    }
+
