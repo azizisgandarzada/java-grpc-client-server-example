@@ -3,7 +3,7 @@ Java gRPC Client Server Example With Gradle
 
 * Go to project root folder
 
-* Run command to generate java files from UserService.proto file
+* Run command to generate java files from CardService.proto file
 ```bash
 ./gradlew build
 ```
