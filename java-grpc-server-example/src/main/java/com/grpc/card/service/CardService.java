@@ -70,7 +70,6 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
 
     @Override
     public void getCards(GetCardRequest request, StreamObserver<GetCardResponse> responseObserver) {
-        System.out.println("GetCardRequest ==> " + request);
         responseObserver.onNext(GetCardResponse.newBuilder()
                 .addAllCards(CARDS)
                 .build());
@@ -79,7 +78,6 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
 
     @Override
     public void addCard(AddCardRequest request, StreamObserver<AddCardResponse> responseObserver) {
-        System.out.println("AddCardRequest ==> " + request);
         Card card = CARDS.stream()
                 .filter(c -> c.getNumber().equals(request.getCard().getNumber()))
                 .findFirst()
@@ -106,7 +104,6 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
 
     @Override
     public void updateCard(UpdateCardRequest request, StreamObserver<UpdateCardResponse> responseObserver) {
-        System.out.println("UpdateCardRequest ==> " + request);
         int index = IntStream.range(0, CARDS.size())
                 .filter(i -> CARDS.get(i).getId() == request.getCard().getId())
                 .findFirst()
@@ -129,7 +126,6 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
 
     @Override
     public void deleteCard(DeleteCardRequest request, StreamObserver<DeleteCardResponse> responseObserver) {
-        System.out.println("DeleteCardRequest ==> " + request);
         int index = IntStream.range(0, CARDS.size())
                 .filter(i -> CARDS.get(i).getId() == request.getCardId())
                 .findFirst()
