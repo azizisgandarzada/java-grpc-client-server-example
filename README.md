@@ -8,9 +8,9 @@ Java gRPC Client Server Example With Gradle
 ./gradlew build
 ```
 
-* Run server
+* Run server application
 
-* Run client
+* Run client application
 
 
 
