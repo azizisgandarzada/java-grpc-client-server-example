@@ -1,2 +1,15 @@
 
-Z	java:S106"9Replace this use of System.out or System.err by a logger.(§şĞÚıÿÿÿÿ8¸ˆˆÀ•/
+Z	java:S106\"9Replace this use of System.out or System.err by a logger.(ˆ·¦®şÿÿÿÿ8ÖêĞè•/
+l
+java:S1192e"PDefine a constant instead of duplicating this literal "Card Not Found!" 3 times.(‹°¦U8ûëç•/
+t
+java:S1192"RDefine a constant instead of duplicating this literal "AZIZ ISGANDARZADA" 3 times.(Í€ïÿÿÿÿÿ8é—Íã•/
+d
+java:S1192"GDefine a constant instead of duplicating this literal "85.5mm" 3 times.(Í³Ñˆ8³–˜ç•/
+c
+java:S1192"FDefine a constant instead of duplicating this literal "Width" 3 times.(‰¢Ïâ8³–˜ç•/
+Z	java:S106A"9Replace this use of System.out or System.err by a logger.(€‚Ê»ÿÿÿÿÿ8ÍÌĞè•/
+d
+java:S1192"GDefine a constant instead of duplicating this literal "Length" 3 times.(Í³Ñˆ8³–˜ç•/
+Z	java:S106s"9Replace this use of System.out or System.err by a logger.(†œËûÿÿÿÿ8îƒÑè•/
+T	java:S1068"9Replace this use of System.out or System.err by a logger.(ÉÏ™8ÓÚÏè•/

@@ -1,8 +1,25 @@
-package com.grpc.card;
+package com.grpc.card.service;
 
+import com.grpc.card.AddCardRequest;
+import com.grpc.card.AddCardResponse;
+import com.grpc.card.Card;
+import com.grpc.card.CardServiceGrpc;
+import com.grpc.card.Currency;
+import com.grpc.card.DeleteCardRequest;
+import com.grpc.card.DeleteCardResponse;
+import com.grpc.card.ErrorCode;
+import com.grpc.card.ErrorResponse;
+import com.grpc.card.GetCardRequest;
+import com.grpc.card.GetCardResponse;
+import com.grpc.card.Status;
+import com.grpc.card.Type;
+import com.grpc.card.UpdateCardRequest;
+import com.grpc.card.UpdateCardResponse;
+import com.grpc.card.exception.CardNotFoundException;
 import io.grpc.Metadata;
 import io.grpc.protobuf.ProtoUtils;
 import io.grpc.stub.StreamObserver;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -71,7 +88,7 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
             ErrorResponse errorResponse = ErrorResponse.newBuilder()
                     .setErrorCode(ErrorCode.CARD_ALREADY_EXISTS)
                     .setErrorMessage("Card Already Exists!")
-                    .setTimestamp(System.currentTimeMillis())
+                    .setTimestamp(Instant.now().toEpochMilli())
                     .build();
             Metadata metadata = getErrorMetadata(errorResponse);
             responseObserver.onError(io.grpc.Status.ALREADY_EXISTS
@@ -99,7 +116,7 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
             ErrorResponse errorResponse = ErrorResponse.newBuilder()
                     .setErrorCode(ErrorCode.CARD_NOT_FOUND)
                     .setErrorMessage("Card Not Found!")
-                    .setTimestamp(System.currentTimeMillis())
+                    .setTimestamp(Instant.now().toEpochMilli())
                     .build();
             builder.setErrorResponse(errorResponse);
         } else {
@@ -118,16 +135,7 @@ public class CardService extends CardServiceGrpc.CardServiceImplBase {
                 .findFirst()
                 .orElse(-1);
         if (index == -1) {
-            ErrorResponse errorResponse = ErrorResponse.newBuilder()
-                    .setErrorCode(ErrorCode.CARD_NOT_FOUND)
-                    .setErrorMessage("Card Not Found!")
-                    .build();
-            Metadata metadata = getErrorMetadata(errorResponse);
-            responseObserver.onError(io.grpc.Status.NOT_FOUND
-                    .withDescription("Card Not Found!")
-                    .asRuntimeException(metadata));
-            responseObserver.onCompleted();
-            return;
+            throw new CardNotFoundException();
         }
         CARDS.remove(index);
         responseObserver.onNext(DeleteCardResponse.newBuilder()

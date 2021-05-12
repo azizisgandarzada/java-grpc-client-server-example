@@ -1,4 +1,4 @@
-package com.grpc.user;
+package com.grpc.user.service;
 
 import com.grpc.card.AddCardRequest;
 import com.grpc.card.AddCardResponse;
@@ -16,8 +16,12 @@ import io.grpc.ManagedChannelBuilder;
 import io.grpc.Metadata;
 import io.grpc.Status;
 import io.grpc.protobuf.ProtoUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class UserService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     public GetCardResponse getUserCards(int userId) {
         ManagedChannel managedChannel = openChannel();
@@ -27,7 +31,7 @@ public class UserService {
                     .setUserId(userId)
                     .build());
         } catch (Exception ex) {
-            print(ex);
+            log(ex);
             return null;
         } finally {
             managedChannel.shutdown();
@@ -43,7 +47,7 @@ public class UserService {
                     .setCard(card)
                     .build());
         } catch (Exception ex) {
-            print(ex);
+            log(ex);
             return null;
         } finally {
             managedChannel.shutdown();
@@ -72,7 +76,7 @@ public class UserService {
                     .setCardId(cardId)
                     .build());
         } catch (Exception ex) {
-            print(ex);
+            log(ex);
             return null;
         } finally {
             managedChannel.shutdown();
@@ -85,13 +89,11 @@ public class UserService {
                 .build();
     }
 
-    private void print(Exception ex) {
+    private void log(Exception ex) {
         Status status = Status.fromThrowable(ex);
         Metadata metadata = Status.trailersFromThrowable(ex);
         ErrorResponse errorResponse = metadata.get(ProtoUtils.keyForProto(ErrorResponse.getDefaultInstance()));
-        System.out.println("Status ==> " + status);
-        System.out.println("Metadata ==> " + metadata);
-        System.out.println("ErrorResponse ==> " + errorResponse);
+        LOG.error("Status {}, Headers {}, ErrorResponse {}", status, metadata, errorResponse);
     }
 
 }
